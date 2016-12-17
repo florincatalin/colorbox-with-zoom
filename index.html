@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Colorbox zoom examples using Jack Moore jQuery Colorbox and jQuery Zoom</title>
+		
+		<link rel="stylesheet" href="colorbox.css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.colorbox.js"></script>
+		<script src='js/jquery.zoom.js'></script>
+
+			
+		<script>
+	// Make ColorBox responsive
+	jQuery.colorbox.settings.maxWidth  = '95%';
+	jQuery.colorbox.settings.maxHeight = '95%';
+
+	// ColorBox resize function
+	var resizeTimer;
+	function resizeColorBox()
+	{
+		if (resizeTimer) clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function() {
+				if (jQuery('#cboxOverlay').is(':visible')) {
+						jQuery.colorbox.load(true);
+				}
+		}, 300);
+	}
+
+	// Resize ColorBox when resizing window or changing mobile device orientation
+	jQuery(window).resize(resizeColorBox);
+	window.addEventListener("orientationchange", resizeColorBox, false);    
+
+//Colorbox with zoom  (using grab)
+$(document).ready(function(){
+$('.galerie').colorbox({        
+    rel:'galerie',     
+        'onComplete': function(){        
+    $('#cboxLoadedContent img').parent().zoom({ on:'grab' });
+    }
+});        
+});    
+
+//Can also zoom (using grab) thumbs on page 
+$(document).ready(function(){
+  $('img')
+    .wrap('<span style="display:inline-block"></span>')
+    .css('display', 'block')
+    .parent()
+    .zoom({ on:'grab' });
+});
+			</script>
+
+	</head>
+	<body>
+		<h1>Responsive Colorbox with Zoom (using grab)</h1>
+    <h2>You can also use other event that triggers zooming, choose from mouseover, grab, click, or toggle. </h2>
+    <h3>For more information and documentation visit <a href="http://www.jacklmoore.com/colorbox/" target="_blank">Colorbox</a> and <a href="http://www.jacklmoore.com/zoom/" target="_blank">Jquery Zoom</a> by Jack Moore</h3>
+		
+		<p><a class="galerie zoom" href="foto1.jpg" title=""><img src="foto1.jpg" alt="" height="180" width="288"> </a></p>
+		<p><a class="galerie zoom" href="foto2.jpg" title=""><img src="foto2.jpg" alt="" height="108" width="192"> </a></p>		
+	</body>
+</html>
+
+
